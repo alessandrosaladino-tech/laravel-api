@@ -14,7 +14,7 @@ class TechnologySeeder extends Seeder
      */
     public function run(): void
     {
-        $typeList = ['HTML','BOOTSTRAP 5', 'CSS', 'JS', 'VUE 3', 'VITE', 'PHP', 'LARAVEL',];
+        $typeList = ['HTML','BOOTSTRAP', 'CSS', 'JS', 'VUE', 'VITE', 'PHP', 'LARAVEL',];
 
         foreach ($typeList as $type) {
             $new_type = new Technology();

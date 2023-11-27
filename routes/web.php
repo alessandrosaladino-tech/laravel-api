@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\Admin\TechnologyController;
+use App\Http\Controllers\GitHubController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,6 +38,9 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
         'types' => 'type:slug'
     ]);
 
+
+    Route::get('/repositories', [GitHubController::class, 'fetchRepositories'])->name('repositories');
+
     Route::get('technologies/trash', [TechnologyController::class, 'trashed'])->name('technologies.trash');
     Route::put('technologies/{technology}/restore', [TechnologyController::class, 'restoreTrash'])->name('technologies.restore');
     Route::delete('technologies/{technology}/destroy', [TechnologyController::class, 'forceDestroy'])->name('technologies.forceDestroy');
@@ -50,5 +54,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
 
 require __DIR__ . '/auth.php';
