@@ -16,7 +16,7 @@ class GitHubController extends Controller
 
 
 
-        $response = Http::withoutVerifying()->get("https://api.github.com/users/alessandrosaladino-tech/repos?sort=created&direction=asc&per_page=100");
+        $response = Http::withoutVerifying()->withHeader('Authorization', 'Bearer ' . env('GITHUB_API_TOKEN'))->get("https://api.github.com/users/{$author}/repos?sort=created&direction=asc&per_page=100");
 
 
         $repositories = $response->json();
@@ -36,9 +36,8 @@ class GitHubController extends Controller
                 ]
             );
 
-            //sostituire la richiesta quando le chiamate a github si sbloccano
-            $lang_response = Http::withoutVerifying()->get("https://api.github.com/repos/{$author}/{$repository['name']}/languages");
-            //$lang_response = Http::withoutVerifying()->get("https://5247f9c2-b00d-4d81-b23b-aaf483dd9534.mock.pstmn.io/https://api.github.com/repos/MarcoZellini/laravel-boolean/languages");
+            $lang_response = Http::withoutVerifying()->withHeader('Authorization', 'Bearer ' . env('GITHUB_API_TOKEN'))->get("https://api.github.com/repos/{$author}/{$repository['name']}/languages");
+
 
             $project_technologies = $lang_response->json();
 
