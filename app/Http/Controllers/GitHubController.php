@@ -31,7 +31,7 @@ class GitHubController extends Controller
                     'title' => $repository['name'],
                     'slug' => Project::generateSlug($repository['name']),
                     'description' => $repository['description'],
-                    'cover_image' => 'placeholders/L3PymiCpURxhE12JTZwHsKpF46u8cGKbiwihdXIA.png',
+                    'cover_image' => '',
                     'github_link' => $repository['html_url']
                 ]
             );
