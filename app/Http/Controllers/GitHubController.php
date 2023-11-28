@@ -12,11 +12,11 @@ class GitHubController extends Controller
 {
     public function fetchRepositories()
     {
-        $author = env('GITHUB_USERNAME', 'AlessandroSaladino');
+        $author = env('GITHUB_USERNAME', 'alessandrosaladino-tech');
 
 
 
-        $response = Http::withoutVerifying()->withHeader('Authorization', 'Bearer ' . env('GITHUB_API_TOKEN'))->get("https://api.github.com/users/{$author}/repos?sort=created&direction=asc&per_page=100");
+        $response = Http::withoutVerifying()->get("https://api.github.com/users/alessandrosaladino-tech/repos?sort=created&direction=asc&per_page=100");
 
 
         $repositories = $response->json();
@@ -36,7 +36,7 @@ class GitHubController extends Controller
                 ]
             );
 
-            $lang_response = Http::withoutVerifying()->withHeader('Authorization', 'Bearer ' . env('GITHUB_API_TOKEN'))->get("https://api.github.com/repos/{$author}/{$repository['name']}/languages");
+            $lang_response = Http::withoutVerifying()->get("https://api.github.com/repos/{$author}/{$repository['name']}/languages");;
 
 
             $project_technologies = $lang_response->json();
@@ -54,8 +54,9 @@ class GitHubController extends Controller
 
             $project->technologies()->sync($technology_ids);
 
-            //TODO: Generate a project type based on languages
+            
             $project->type_id = rand(1, 5);
+            $project->save();
         }
         return to_route('admin.projects.index')->with('message', 'Fetch Data From GitHub Successfully');
     }
