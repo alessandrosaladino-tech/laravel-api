@@ -38,8 +38,8 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
         'types' => 'type:slug'
     ]);
 
-
-    Route::get('/repositories', [GitHubController::class, 'fetchRepositories'])->name('repositories');
+    //da sistemare
+    //Route::get('/repositories', [GitHubController::class, 'fetchRepositories'])->name('repositories');
 
     Route::get('technologies/trash', [TechnologyController::class, 'trashed'])->name('technologies.trash');
     Route::put('technologies/{technology}/restore', [TechnologyController::class, 'restoreTrash'])->name('technologies.restore');
